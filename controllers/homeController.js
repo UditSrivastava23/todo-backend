@@ -8,7 +8,7 @@ module.exports.signUp = async (req,res)=>{
         email , password ,confirm_password
     } = req.body;
 
-    console.log('Email in req.body',email,req.body)
+    // console.log('Email in req.body',email,req.body)
 
     if(password !== confirm_password){
         return res.status(400).json({
@@ -39,7 +39,7 @@ module.exports.signUp = async (req,res)=>{
 
 module.exports.createSession = async(req,res)=>{
     try {
-        console.log('Create session req.body',req.body);
+        // console.log('Create session req.body',req.body);
     
         const {
             email , password
@@ -61,7 +61,7 @@ module.exports.createSession = async(req,res)=>{
         })
     } catch (err) {
         if(err){
-            console.log('Error in Create Session', err);
+            // console.log('Error in Create Session', err);
             return res.status(404).json({
                 message : 'Internal Server Error'
             })
@@ -72,10 +72,10 @@ module.exports.createSession = async(req,res)=>{
 
 // using async await 
 module.exports.add = async function(req, res){
-    console.log('THis is add function in Home Controller');
-    // console.log('req',req);
-    console.log('req.body',req._body);
-    console.log('req.user',req.user);
+    // console.log('THis is add function in Home Controller');
+    // // console.log('req',req);
+    // console.log('req.body',req._body);
+    // console.log('req.user',req.user);
 
     let {
         title, desc, category, d_date
@@ -110,8 +110,8 @@ module.exports.add = async function(req, res){
 
 // using promises 
 // module.exports.add = (req,res) =>{
-//     console.log('THis is add function in Home COntroller');
-//     console.log('req.body',req.body);
+//     // console.log('THis is add function in Home COntroller');
+//     // console.log('req.body',req.body);
 //     let {
 //         title, desc, category, d_date
 //     } = req.body
@@ -139,31 +139,31 @@ module.exports.home = async function(req, res){
     // res.statusCode = 200
     let user = await User.findById(req.user._id)
 
-    console.log('0 User FOund Is',user);
+    // console.log('0 User FOund Is',user);
 
     let data = [];
 
     // user.task.forEach((el , i)=>{
         // let task = await Task.findById(el);
-        // console.log('1',task);
+        // // console.log('1',task);
         // data.push(task)
 
     //     Task.findById(el)
     //     .then((task) => {
-    //         console.log('1',task);
+    //         // console.log('1',task);
     //         data.push(task)
     //     },
-    //     console.log('**')
+    //     // console.log('**')
     //     )
     // })
 
     for(let i = 0 ; i<user.task.length ; i++){
         let task =  await Task.findById(user.task[i])
-        console.log('1',task);
+        // console.log('1',task);
         data.push(task);
     }
 
-    console.log('2',data);
+    // console.log('2',data);
 
     return res.status(200).json({
         message: "data retrive sucessfully" ,
@@ -172,18 +172,18 @@ module.exports.home = async function(req, res){
 }
 
 module.exports.delete = function(req, res){
-    console.log("In the delete function",req.params);
+    // console.log("In the delete function",req.params);
 
     Task.findByIdAndDelete(req.params._id)
     .then(async data =>{
-        console.log('deleted Item' , data);
+        // console.log('deleted Item' , data);
         await User.findByIdAndUpdate(req.user._id,{$pull : {task :{_id : data?._id}}})
         return res.status(200).json({
             message : 'Task Deleted SUccessfully'
         })
     })
     .catch(err=>{
-        console.log('Error deleting tSK',err);
+        // console.log('Error deleting tSK',err);
         return res.status(500).json({
             message : 'Internal Server Error'
         })
@@ -191,7 +191,7 @@ module.exports.delete = function(req, res){
 }
 
 module.exports.update = async(req,res)=>{
-    console.log('In the Update Request',req.params.id);
+    // console.log('In the Update Request',req.params.id);
 
     let {
         title, desc, category, d_date

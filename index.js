@@ -18,5 +18,5 @@ app.use(passport.initialize());
 app.use('/', require('./routes/index'))
 
 app.listen(port, (err)=> {
-    console.log(err || `Successfully connnected to server at port ${port}`);
+     console.log(err || `Successfully connnected to server at port ${port}`);
 })

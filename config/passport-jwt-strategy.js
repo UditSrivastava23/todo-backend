@@ -13,7 +13,7 @@ const options = {
 passport.use(new JwtStrategy(options , async function(jwtPayload, done){
     try {
 
-        console.log('JWT');
+        // console.log('JWT');
 
         let user = await User.findById(jwtPayload._id)
     
@@ -24,7 +24,7 @@ passport.use(new JwtStrategy(options , async function(jwtPayload, done){
         done(null , user)
     } catch (error) {
         if(error){
-            console.log('Error in Jwt Strategy',error);
+            // console.log('Error in Jwt Strategy',error);
             done(error , false)
         }
     }
