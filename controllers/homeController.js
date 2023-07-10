@@ -189,3 +189,24 @@ module.exports.delete = function(req, res){
         })
     })
 }
+
+module.exports.update = async(req,res)=>{
+    console.log('In the Update Request',req.params.id);
+
+    let {
+        title, desc, category, d_date
+    } = req.body
+    if(!(title && desc && category && d_date)){
+        return res.status(406).json({
+            message : 'Incomplete Information'
+        })
+    }
+
+    let task = await Task.findByIdAndUpdate(req?.params?.id,{title , desc , category , d_date})
+
+    return res.status(200).json({
+        message : 'Task Successfully Updated',
+        data : task
+    })
+
+}

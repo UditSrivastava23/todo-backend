@@ -26,10 +26,17 @@ router.get("/delete/:_id",passport.authenticate("jwt", {
     session: false ,
     failureRedirect : 'http://localhost:8000/error/un-auth-error'
    }), homeController.delete);
+
+router.post("/update/:id",passport.authenticate("jwt", {
+    session: false ,
+    failureRedirect : 'http://localhost:8000/error/un-auth-error'
+   }),homeController.update)
+
 router.get("/error/un-auth-error",(req,res)=>{
     return res.status(401).json({
         message : 'You are Unauthorized'
     })
 });
+
 
 module.exports = router;
